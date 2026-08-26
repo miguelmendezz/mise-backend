@@ -3,6 +3,7 @@ package com.miguelmendezz.mise.controller;
 import com.miguelmendezz.mise.entity.Product;
 import com.miguelmendezz.mise.repository.ProductRepository;
 import com.miguelmendezz.mise.service.StockMovementService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,12 +32,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product create(@RequestBody Product product) {
+    public Product create(@Valid @RequestBody Product product) {
         return productRepository.save(product);
     }
 
     @PutMapping("/{id}")
-    public Product update(@PathVariable Long id, @RequestBody Product updatedProduct) {
+    public Product update(@PathVariable Long id, @Valid @RequestBody Product updatedProduct) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 

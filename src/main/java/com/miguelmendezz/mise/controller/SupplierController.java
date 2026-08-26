@@ -2,6 +2,7 @@ package com.miguelmendezz.mise.controller;
 
 import com.miguelmendezz.mise.entity.Supplier;
 import com.miguelmendezz.mise.repository.SupplierRepository;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,12 +29,12 @@ public class SupplierController {
     }
 
     @PostMapping
-    public Supplier create(@RequestBody Supplier supplier) {
+    public Supplier create(@Valid @RequestBody Supplier supplier) {
         return supplierRepository.save(supplier);
     }
 
     @PutMapping("/{id}")
-    public Supplier update(@PathVariable Long id, @RequestBody Supplier updatedSupplier) {
+    public Supplier update(@PathVariable Long id, @Valid @RequestBody Supplier updatedSupplier) {
         Supplier supplier = supplierRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Supplier not found"));
 

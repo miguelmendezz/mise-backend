@@ -1,16 +1,23 @@
 package com.miguelmendezz.mise.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Product {
     @Id
     @GeneratedValue
     private Long id;
+    @NotNull
     @ManyToOne
     private Supplier supplier;
+    @NotBlank
     private String name;
+    @NotBlank
     private String category;
+    @PositiveOrZero
     private int stockQuantity;
 
     public Product() {

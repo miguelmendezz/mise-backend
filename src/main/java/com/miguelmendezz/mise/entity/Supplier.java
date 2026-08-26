@@ -1,13 +1,16 @@
 package com.miguelmendezz.mise.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Supplier {
     @Id
     @GeneratedValue
     private Long id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String contact;
 
     public Supplier() {

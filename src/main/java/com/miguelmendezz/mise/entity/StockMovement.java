@@ -3,6 +3,7 @@ package com.miguelmendezz.mise.entity;
 import com.miguelmendezz.mise.entity.enums.MovementReason;
 import com.miguelmendezz.mise.entity.enums.MovementType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ public class StockMovement {
     private Long id;
     @ManyToOne
     private Product product;
+    @Positive
     private int quantity;
     @Enumerated(EnumType.STRING)
     private MovementType type;

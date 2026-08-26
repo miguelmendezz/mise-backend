@@ -26,7 +26,7 @@ public class StockMovementService {
         if (product.getStockQuantity() >= quantity) {
             product.setStockQuantity(product.getStockQuantity() - quantity);
         } else {
-            throw new IllegalStateException("Insufficient stock quantity!");
+            throw new IllegalStateException("Insufficient stock quantity ");
         }
 
         productRepository.save(product);

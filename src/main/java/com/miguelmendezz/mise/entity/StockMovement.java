@@ -14,6 +14,12 @@ public class StockMovement {
     private Long id;
     @ManyToOne
     private Product product;
+    @ManyToOne
+    private Employee employee;
+    @ManyToOne
+    private Reservation reservation;
+    @ManyToOne
+    private Performance performance;
     @Positive
     private int quantity;
     @Enumerated(EnumType.STRING)
@@ -43,6 +49,30 @@ public class StockMovement {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
+    public Performance getPerformance() {
+        return performance;
+    }
+
+    public void setPerformance(Performance performance) {
+        this.performance = performance;
     }
 
     public int getQuantity() {

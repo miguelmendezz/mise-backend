@@ -33,13 +33,7 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-        Claims claims = Jwts.parser()
-                .verifyWith(getSigningKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-
-        return claims.getSubject();
+        return extractClaims(token).getSubject();
     }
 
     public boolean isTokenValid(String token) {
@@ -53,5 +47,20 @@ public class JwtService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public Role extractRole(String token) {
+        Claims claims = extractClaims(token);
+        String roleValue = claims.get("role", String.class);
+
+        return Role.valueOf(roleValue);
+    }
+
+    private Claims extractClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 }

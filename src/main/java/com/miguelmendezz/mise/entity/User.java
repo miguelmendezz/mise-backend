@@ -4,6 +4,7 @@ import com.miguelmendezz.mise.entity.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+@Table(name = "users")
 @Entity
 public class User {
     @Id

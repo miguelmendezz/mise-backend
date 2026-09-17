@@ -1,6 +1,7 @@
 package com.miguelmendezz.mise.controller;
 
 import com.miguelmendezz.mise.entity.Product;
+import com.miguelmendezz.mise.entity.StockMovement;
 import com.miguelmendezz.mise.repository.ProductRepository;
 import com.miguelmendezz.mise.service.StockMovementService;
 import jakarta.validation.Valid;
@@ -60,7 +61,8 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/sell")
-    public void sell(@PathVariable Long id, @RequestParam int quantity) {
-        stockMovementService.registerSale(id, quantity);
+    public ResponseEntity<StockMovement> sell(@PathVariable Long id, @RequestParam int quantity) {
+        StockMovement registeredSale = stockMovementService.registerSale(id, quantity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registeredSale);
     }
 }

@@ -3,6 +3,8 @@ package com.miguelmendezz.mise.controller;
 import com.miguelmendezz.mise.entity.Performance;
 import com.miguelmendezz.mise.repository.PerformanceRepository;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,9 @@ public class PerformanceController {
     }
 
     @PostMapping
-    public Performance create(@Valid @RequestBody Performance performance) {
-        return performanceRepository.save(performance);
+    public ResponseEntity<Performance> create(@Valid @RequestBody Performance performance) {
+        Performance savedPerformance = performanceRepository.save(performance);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedPerformance);
     }
 
     @PutMapping("/{id}")

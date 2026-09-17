@@ -3,6 +3,8 @@ package com.miguelmendezz.mise.controller;
 import com.miguelmendezz.mise.entity.Reservation;
 import com.miguelmendezz.mise.repository.ReservationRepository;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,9 @@ public class ReservationController {
     }
 
     @PostMapping
-    public Reservation create(@Valid @RequestBody Reservation reservation) {
-        return reservationRepository.save(reservation);
+    public ResponseEntity<Reservation> create(@Valid @RequestBody Reservation reservation) {
+        Reservation savedReservation = reservationRepository.save(reservation);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedReservation);
     }
 
     @PutMapping("/{id}")

@@ -29,18 +29,18 @@ public class StockMovementService {
         productRepository.save(product);
     }
 
-    public void registerSale(Long productId, int quantity) {
+    public StockMovement registerSale(Long productId, int quantity) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 
         decreaseStock(product, quantity);
 
         StockMovement movement = new StockMovement(product, quantity, MovementType.OUT, MovementReason.SALE);
-        stockMovementRepository.save(movement);
+        return stockMovementRepository.save(movement);
     }
 
-    public void registerCourtesy(Long productId, int quantity, MovementReason reason,
-                                 Employee employee, Reservation reservation, Performance performance) {
+    public StockMovement registerCourtesy(Long productId, int quantity, MovementReason reason,
+                                          Employee employee, Reservation reservation, Performance performance) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 
@@ -56,6 +56,6 @@ public class StockMovementService {
         if (performance != null) {
             movement.setPerformance(performance);
         }
-        stockMovementRepository.save(movement);
+        return stockMovementRepository.save(movement);
     }
 }

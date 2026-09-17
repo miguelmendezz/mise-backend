@@ -4,11 +4,14 @@ import com.miguelmendezz.mise.dto.CourtesyRequest;
 import com.miguelmendezz.mise.entity.Employee;
 import com.miguelmendezz.mise.entity.Performance;
 import com.miguelmendezz.mise.entity.Reservation;
+import com.miguelmendezz.mise.entity.StockMovement;
 import com.miguelmendezz.mise.repository.EmployeeRepository;
 import com.miguelmendezz.mise.repository.PerformanceRepository;
 import com.miguelmendezz.mise.repository.ProductRepository;
 import com.miguelmendezz.mise.repository.ReservationRepository;
 import com.miguelmendezz.mise.service.StockMovementService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +38,7 @@ public class CourtesyController {
     }
 
     @PostMapping
-    public void registerCourtesy(@RequestBody CourtesyRequest request) {
+    public ResponseEntity<StockMovement> registerCourtesy(@RequestBody CourtesyRequest request) {
         Employee employee = request.employeeId() != null
                 ? employeeRepository.findById(request.employeeId()).orElseThrow()
                 : null;
@@ -48,9 +51,11 @@ public class CourtesyController {
                 ? reservationRepository.findById(request.reservationId()).orElseThrow()
                 : null;
 
-        stockMovementService.registerCourtesy(
+        StockMovement registeredCourtesy = stockMovementService.registerCourtesy(
                 request.productId(), request.quantity(), request.reason(),
                 employee, reservation, performance
         );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(registeredCourtesy);
     }
 }

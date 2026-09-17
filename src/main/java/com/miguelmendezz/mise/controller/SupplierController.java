@@ -3,6 +3,8 @@ package com.miguelmendezz.mise.controller;
 import com.miguelmendezz.mise.entity.Supplier;
 import com.miguelmendezz.mise.repository.SupplierRepository;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,9 @@ public class SupplierController {
     }
 
     @PostMapping
-    public Supplier create(@Valid @RequestBody Supplier supplier) {
-        return supplierRepository.save(supplier);
+    public ResponseEntity<Supplier> create(@Valid @RequestBody Supplier supplier) {
+        Supplier savedSupplier = supplierRepository.save(supplier);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedSupplier);
     }
 
     @PutMapping("/{id}")

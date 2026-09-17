@@ -4,6 +4,8 @@ import com.miguelmendezz.mise.entity.Product;
 import com.miguelmendezz.mise.repository.ProductRepository;
 import com.miguelmendezz.mise.service.StockMovementService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,8 +34,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product create(@Valid @RequestBody Product product) {
-        return productRepository.save(product);
+    public ResponseEntity<Product> create(@Valid @RequestBody Product product) {
+        Product savedProduct = productRepository.save(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
 
     @PutMapping("/{id}")
